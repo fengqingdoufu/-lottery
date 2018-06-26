@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>摇摇钱包</title>
+    <link rel="stylesheet" type="text/css" href="../css/common-40af5c4fba.css">
+    <link rel="stylesheet" type="text/css" href="../css/lottery-cb90bc67a4.css">
+</head>
+<body>
+<!--抽奖页面-->
+<div class="lottery">
+    <h1 class="lottery-title">支付有惊喜</h1>
+    <div class="lottery-center">
+        <img src="../images/bg-lottery.png" alt="" class="lottery-bg">
+        <h2 class="title">最高可得&nbsp;88.8元&nbsp;</h2>
+        <div class="lottery-center-wrap">
+            <div class="lottery-center" style="transform: rotate(0deg);transition: transform 4s ease-in-out"
+                 id="lottery-center"></div>
+            <div class="lottery-btn" id="lottery-btn"></div>
+            <div class="lottery-tip"></div>
+        </div>
+    </div>
+</div>
+<!--抽奖弹窗-->
+<div class="window-box" id="win-box">
+    <div class="inner-box">
+        <div class="no-result">
+            <h2>谢谢参与</h2>
+            <a href="javascript:;">前往摇摇钱包</a>
+        </div>
+    </div>
+</div>
+<script src="../js/common-ddc86ef120.js"></script>
+<script>
+    (function () {
+        var lottery = {
+            start_rotating_degree: 0, //初始旋转角度
+            lottery_num: 1, //默认抽奖次数
+            click_flag: true,
+            init: function () {
+                //点击抽奖
+                this.rotateHandle()
+                //摇一摇抽奖
+                this.shakeHandle()
+                // 阻止遮罩默认时间
+                this.preventDefault()
+            },
+            shakeHandle: function () {
+                var SHAKE_THRESHOLD = 2000
+                var last_update = 0
+                var x = y = z = lastX = lastY = lastZ = 0
+                var _this = this
+                if (window.DeviceMotionEvent) {
+                    window.addEventListener('devicemotion',deviceMotionHandler, false)
+                }
+                function deviceMotionHandler(event) {
+                    var acceleration = event.accelerationIncludingGravity;
+                    var curTime = new Date().getTime();
+                    if ((curTime - last_update) > 100) {
+                        var diffTime = curTime - last_update;
+                        last_update = curTime;
+                        x = acceleration.x;
+                        y = acceleration.y;
+                        z = acceleration.z;
+                        var speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
+                        if (speed > SHAKE_THRESHOLD) {
+                            _this.rotating()
+                        }
+                        lastX = x
+                        lastY = y
+                        lastZ = z
+                    }
+                }
+            },
+            preventDefault: function () {
+                var winBox = document.getElementById("win-box")
+                winBox.ontouchmove = function (event) {
+                    event.preventDefault()
+                }
+            },
+            rotateHandle: function () {
+                var _this = this
+                var lotteryBtn = this.getId("lottery-btn")
+                lotteryBtn.onclick = function () {
+                    _this.rotating()
+                }
+            },
+            rotating: function () {
+                if (!this.click_flag) return;
+                if (this.lottery_num === 0) return
+                var during_time = 3; //  定时器X秒后开启抽奖
+                var result_index = 0 //默认中奖位置
+                var result_angle = [22.5, 337.5, 292.5, 247.5, 202.5, 157.5, 112.5, 67.5]; //最终会旋转到下标的位置所需要的度数
+                var rand_circle = 4; // 附加多转几圈，2-3
+                var that = this
+                var lotteryCenter = this.getId("lottery-center")
+                var winBox = this.getId("win-box")
+                this.click_flag = false; // 旋转结束前，不允许再次触发
+                // 转动盘子
+                var rotate_angle = this.start_rotating_degree + rand_circle * 360 +
+                    result_angle[result_index] - this.start_rotating_degree % 360
+                lotteryCenter.style.transform = `rotate(${rotate_angle}deg)`
+                lotteryCenter.style.webkittransform = `rotate(${rotate_angle}deg)`
+                this.start_rotating_degree = rotate_angle
+                this.lottery_num--
+                // 旋转结束后，允许再次触发
+                setTimeout(function () {
+                    winBox.className = "window-box show-box"
+                    that.click_flag = true;
+                }, during_time * 1000 + 1200); // 延时，保证转盘转完
+            },
+            getId: function (id) {
+                return document.getElementById(id)
+            }
+        }
+        lottery.init()
+    })()
+</script>
+</body>
+</html>

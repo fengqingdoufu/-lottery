@@ -1,0 +1,136 @@
+body {
+  background: #4c9c42;
+}
+
+.lottery .lottery-title {
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.28rem;
+  color: #fff;
+  margin: 0.746667rem 0 0.24rem 0;
+}
+
+.lottery .lottery-center {
+  position: relative;
+  width: 100%;
+  height: 12.826667rem;
+  overflow: hidden;
+}
+
+.lottery .lottery-center .lottery-bg {
+  display: block;
+  width: 100%;
+}
+
+.lottery .lottery-center .title {
+  position: absolute;
+  top: 3.22%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: normal;
+  font-size: 0.373333rem;
+  color: #fff;
+  line-height: 1;
+}
+
+.lottery .lottery-center .lottery-center-wrap {
+  position: absolute;
+  top: 20.48%;
+  left: 50%;
+  width: 8.493333rem;
+  height: 8.493333rem;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.lottery .lottery-center .lottery-center-wrap .lottery-center {
+  width: 8.493333rem;
+  height: 8.493333rem;
+  background: url("../images/bg-lottery-center.png") no-repeat;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+
+.lottery .lottery-center .lottery-center-wrap .lottery-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 3.306667rem;
+  height: 3.306667rem;
+  background: url("../images/icon-lottery-start.png") no-repeat;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.lottery .lottery-center .lottery-center-wrap .lottery-tip {
+  position: absolute;
+  width: 1.493333rem;
+  height: 1.08rem;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: url("../images/icon-lottery-tip.png") no-repeat;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+
+.window-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.window-box .inner-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 7.44rem;
+  height: 3.786667rem;
+  background: #fff;
+  border-radius: 0.133333rem;
+}
+
+.window-box .inner-box .no-result h2 {
+  font-weight: normal;
+  font-size: 0.4rem;
+  color: #4c9c42;
+  margin: 0.933333rem 0;
+  text-align: center;
+}
+
+.window-box .inner-box .no-result a {
+  display: block;
+  width: 3.493333rem;
+  height: 0.773333rem;
+  line-height: 0.773333rem;
+  background: #8ed06c;
+  border: 0.08rem solid #4c9c42;
+  margin: 0 auto;
+  border-radius: 0.266667rem;
+  font-size: 0.373333rem;
+  color: #fff;
+  text-align: center;
+}
+
+.show-box {
+  visibility: visible;
+  opacity: 1;
+}
